@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RatingPickerComponent } from 'custom-form-controls';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { RatingOptions, RatingPickerComponent } from 'custom-form-controls';
+
+interface Rating {
+  reviewText: string,
+  reviewRating: RatingOptions
+}
 
 @Component({
   selector: 'app-rating-picker-page',
@@ -16,9 +21,21 @@ import { RatingPickerComponent } from 'custom-form-controls';
 })
 export class RatingPickerPageComponent implements OnInit {
 
-  constructor() { }
+    form = this.fb.group<Rating>({
+    reviewText: '',
+    reviewRating: 'great'
+  })
+
+  constructor(private fb: FormBuilder) {
+    // this.form.controls.reviewRating.disable();
+  }
 
   ngOnInit(): void {
+  }
+
+  onSubmit() {
+    console.log(this.form.value);
+    this.form.reset();
   }
 
 }

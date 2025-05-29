@@ -1,0 +1,35 @@
+:host {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+}
+
+.rating-options {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+    min-width: 200px;
+    background-color: #fff;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    li {
+        box-sizing: border-box;
+        padding: 5px 13px;
+        border-radius: 8px;
+        font-size: 26px;
+        cursor: pointer;
+
+        &:hover, &.active {
+            background-color: #daeefa;
+        }
+    }
+
+}
