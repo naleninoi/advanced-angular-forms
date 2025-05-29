@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'cfc-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss']
+    selector: 'cfc-select',
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.scss']
 })
 export class SelectComponent implements OnInit {
 
-  constructor() { }
+    @Input()
+    label = '';
 
-  ngOnInit(): void {
-  }
+    @Input()
+    value: string | null = null
+
+    constructor() { }
+
+    ngOnInit(): void {
+    }
 
 }

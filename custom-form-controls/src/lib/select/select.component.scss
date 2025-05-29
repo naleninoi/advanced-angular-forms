@@ -1,0 +1,43 @@
+:host {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    border: #ccc solid 2px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    min-width: 250px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #eceff1;
+        .selected-value {
+            transform: scale(0.9);
+        }
+    }
+
+    .label {
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--color-text);
+    }
+
+    .control {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .selected-value {
+        font-size: 16px;
+        margin-right: 15px;
+        width: 100%;
+        transform-origin: left;
+        transition: transform 0.2s;
+
+        &.empty {
+            opacity: 0.6;
+        }
+    }
+}
