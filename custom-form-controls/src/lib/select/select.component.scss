@@ -44,9 +44,11 @@
 
 .panel {
     min-width: 250px;
+    min-height: 150px;
     padding: 5px 10px;
     box-sizing: border-box;
     border-radius: 10px;
     border: var(--color-text) solid 2px;
     background-color: #fff;
+    transform-origin: top;
 }
