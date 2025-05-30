@@ -2,7 +2,7 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    border: #ccc solid 2px;
+    border: var(--color-text) solid 2px;
     padding: 5px 10px;
     box-sizing: border-box;
     border-radius: 10px;
@@ -40,4 +40,13 @@
             opacity: 0.6;
         }
     }
+}
+
+.panel {
+    min-width: 250px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: var(--color-text) solid 2px;
+    background-color: #fff;
 }

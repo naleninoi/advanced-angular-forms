@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'cfc-select',
@@ -13,9 +13,20 @@ export class SelectComponent implements OnInit {
     @Input()
     value: string | null = null
 
+    @HostListener('click')
+    public open(): void {
+        this.isOpen = true;
+    }
+
+    public isOpen = false;
+
     constructor() { }
 
     ngOnInit(): void {
+    }
+
+    public close(): void {
+        this.isOpen = false;
     }
 
 }
