@@ -11,3 +11,7 @@
 .dynamic-form-container {
     padding: calc(var(--spacing-step) * 2);
 }
+
+.form-heading, .form-field {
+    margin-bottom: var(--spacing-step);
+}
