@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, switchMap, tap } from 'rxjs';
-import { DynamicFormConfig } from '../dynamic-forms.model';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { DynamicControl, DynamicFormConfig } from '../dynamic-forms.model';
+import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-dynamic-forms-page',
@@ -33,7 +33,7 @@ export class DynamicFormsPageComponent implements OnInit {
     }
 
     public onSubmit(): void {
-        console.log(this.form.value);
+        console.log(this.form);
         this.form.reset();        
     }
 
@@ -41,8 +41,28 @@ export class DynamicFormsPageComponent implements OnInit {
         this.form = new FormGroup({});
 
         Object.keys(controls).forEach(key => {
-            this.form.addControl(key, new FormControl(controls[key].value))
+            const validators = this.resolveValidators(controls[key]);
+
+            this.form.addControl(key, new FormControl(controls[key].value, validators))
         });        
+    }
+
+    private resolveValidators({ validators = {} }: DynamicControl): ValidatorFn[] {
+        return Object.keys(validators).map(validatorKey => {
+            const validatorValue = validators[validatorKey];
+
+            if (validatorKey === 'required') {
+                return Validators.required;
+            }
+            if (validatorKey === 'email') {
+                return Validators.email;
+            }
+            if (validatorKey === 'minlength' && typeof validatorValue === 'number') {
+                return Validators.minLength(validatorValue);
+            }
+
+            return Validators.nullValidator;
+        });
     }
 
 }
