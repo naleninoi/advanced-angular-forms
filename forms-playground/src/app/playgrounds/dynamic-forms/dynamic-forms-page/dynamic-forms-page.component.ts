@@ -4,11 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, switchMap, tap } from 'rxjs';
 import { DynamicControl, DynamicFormConfig } from '../dynamic-forms.model';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import { DynamicControlResolver } from '../dynamic-control-resolver.service';
+import { ControlInjectorPipe } from '../control-injector.pipe';
 
 @Component({
     selector: 'app-dynamic-forms-page',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, ControlInjectorPipe],
     templateUrl: './dynamic-forms-page.component.html',
     styleUrls: [
         '../../common-page.scss',
@@ -23,7 +25,9 @@ export class DynamicFormsPageComponent implements OnInit {
     protected formLoadingTrigger = new Subject<'user' | 'company'>();
     protected formConfig$!: Observable<DynamicFormConfig>;
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        protected controlResolver: DynamicControlResolver) { }
 
     ngOnInit(): void {
         this.formConfig$ = this.formLoadingTrigger.pipe(
@@ -34,7 +38,7 @@ export class DynamicFormsPageComponent implements OnInit {
 
     public onSubmit(): void {
         console.log(this.form);
-        this.form.reset();        
+        this.form.reset();
     }
 
     private buildForm(controls: DynamicFormConfig['controls']): void {
@@ -44,7 +48,7 @@ export class DynamicFormsPageComponent implements OnInit {
             const validators = this.resolveValidators(controls[key]);
 
             this.form.addControl(key, new FormControl(controls[key].value, validators))
-        });        
+        });
     }
 
     private resolveValidators({ validators = {} }: DynamicControl): ValidatorFn[] {
